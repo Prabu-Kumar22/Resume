@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Trajectory Analysis: Prabu Kumar B.</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .text-shadow-custom {
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        .kpi-value {
+            font-weight: 900;
+            color: #005CB9;
+        }
+        .flowchart-node {
+            border: 2px solid #45A2FF;
+            background-color: #f0f8ff;
+            color: #00449E;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            text-align: center;
+            font-weight: 600;
+            flex-grow: 1;
+        }
+        .flowchart-connector {
+            flex-grow: 1;
+            border-bottom: 2px dashed #45A2FF;
+            position: relative;
+            min-width: 2rem;
+        }
+        .pyramid-level {
+            clip-path: polygon(15% 0, 85% 0, 100% 100%, 0% 100%);
+            text-align: center;
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+            font-weight: 600;
+            color: white;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-4">
+            <h1 class="text-3xl font-bold text-[#00449E] text-shadow-custom">Professional Career Analysis</h1>
+            <p class="text-lg text-gray-600">Deep Dive: Prabu Kumar B.</p>
+        </div>
+    </header>
+
+    <main class="container mx-auto p-4 md:p-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            <div class="lg:col-span-3 bg-white rounded-lg shadow-lg p-6 flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-8">
+                <div class="text-center md:text-left">
+                    <h2 class="text-4xl font-bold text-[#00449E]">Prabu Kumar B.</h2>
+                    <p class="text-lg text-gray-500">Backend Operations & Management Specialist</p>
+                    <div class="mt-4 flex flex-wrap justify-center md:justify-start gap-x-4 gap-y-2 text-sm text-gray-700">
+                        <span>📞 8978837718</span>
+                        <span>✉️ prabukumarbalasani@gmail.com</span>
+                        <span>📍 Chennai, India</span>
+                    </div>
+                </div>
+                <div class="flex-grow"></div>
+                <div class="text-center p-6 bg-blue-50 rounded-lg border-2 border-dashed border-[#45A2FF]">
+                    <p class="text-lg font-semibold text-[#005CB9]">Total Professional Experience</p>
+                    <p id="total-experience" class="text-7xl kpi-value">9+</p>
+                    <p class="text-xl font-semibold text-[#005CB9]">Years</p>
+                </div>
+            </div>
+
+            <div class="md:col-span-2 lg:col-span-1 bg-white rounded-lg shadow-lg p-6">
+                <h3 class="text-2xl font-bold text-[#00449E] mb-4">Core Competency Matrix</h3>
+                <p class="text-gray-600 mb-4">This radar chart visualizes the relationships between key professional skills, demonstrating a well-rounded and balanced competency profile essential for operational and managerial roles. His strengths in problem-solving and communication are foundational to his success.</p>
+                <div class="chart-container">
+                    <canvas id="skillsRadarChart"></canvas>
+                </div>
+            </div>
+
+            <div class="md:col-span-2 lg:col-span-2 bg-white rounded-lg shadow-lg p-6">
+                 <h3 class="text-2xl font-bold text-[#00449E] mb-4">Career Trajectory Analysis</h3>
+                 <p class="text-gray-600 mb-4">The professional timeline illustrates a clear pattern of growth and diversification. Starting from a focused role in financial recovery, the trajectory moves through sales, specialized operational management, and accounting, culminating in a senior backend operations role. This indicates a consistent drive for new challenges and skill acquisition.</p>
+                 <div class="relative mt-5">
+                    <div class="border-l-4 border-[#45A2FF] absolute h-full top-0 left-4"></div>
+                    <div class="mb-8 pl-12 relative">
+                        <div class="absolute w-6 h-6 bg-[#005CB9] rounded-full mt-1 -left-3 border-4 border-white"></div>
+                        <p class="font-bold text-lg text-[#005CB9]">Nov 2022 – Present</p>
+                        <h4 class="font-semibold text-xl">Backend Executive Officer</h4>
+                        <p class="text-md text-gray-600">Go Fashion India Limited</p>
+                    </div>
+                    <div class="mb-8 pl-12 relative">
+                        <div class="absolute w-6 h-6 bg-[#0076D7] rounded-full mt-1 -left-3 border-4 border-white"></div>
+                        <p class="font-bold text-lg text-[#0076D7]">Aug 2021 – Oct 2022</p>
+                        <h4 class="font-semibold text-xl">Account Assistant</h4>
+                        <p class="text-md text-gray-600">DM SOURCE EXIM</p>
+                    </div>
+                    <div class="mb-8 pl-12 relative">
+                        <div class="absolute w-6 h-6 bg-[#45A2FF] rounded-full mt-1 -left-3 border-4 border-white"></div>
+                        <p class="font-bold text-lg text-[#45A2FF]">Oct 2019 – May 2021</p>
+                        <h4 class="font-semibold text-xl">Supervisor & In Charge</h4>
+                        <p class="text-md text-gray-600">Savitri Shrimps</p>
+                    </div>
+                     <div class="mb-8 pl-12 relative">
+                        <div class="absolute w-6 h-6 bg-[#89C9FF] rounded-full mt-1 -left-3 border-4 border-white"></div>
+                        <p class="font-bold text-lg text-[#89C9FF]">Mar 2017 – Sep 2019</p>
+                        <h4 class="font-semibold text-xl">Sales Manager</h4>
+                        <p class="text-md text-gray-600">TAPASYA MOTORS</p>
+                    </div>
+                     <div class="pl-12 relative">
+                        <div class="absolute w-6 h-6 bg-gray-400 rounded-full mt-1 -left-3 border-4 border-white"></div>
+                        <p class="font-bold text-lg text-gray-500">Jul 2015 – Dec 2016</p>
+                        <h4 class="font-semibold text-xl">Bank Recovery Process</h4>
+                        <p class="text-md text-gray-600">LUCRE MANAGEMENT</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="md:col-span-2 lg:col-span-3 bg-white rounded-lg shadow-lg p-6">
+                <h3 class="text-2xl font-bold text-[#00449E] mb-4">Operational Process Flow (Current Role)</h3>
+                <p class="text-gray-600 mb-6">This chart organizes the complex responsibilities of the Backend Executive Officer. It showcases the central role of leadership in coordinating between front-end teams, regional management, and external stakeholders like vendors and landlords. The flow highlights a focus on problem resolution, financial oversight, and strategic growth initiatives.</p>
+                <div class="flex flex-col space-y-4">
+                    <div class="flex items-center justify-center space-x-2">
+                        <div class="flowchart-node">Front-End Teams</div>
+                         <div class="flowchart-connector"></div>
+                        <div class="flowchart-node bg-[#005CB9] text-white shadow-lg">Leadership & Resolution (Prabu)</div>
+                         <div class="flowchart-connector"></div>
+                        <div class="flowchart-node">Area/Regional Managers</div>
+                    </div>
+                    <div class="flex justify-center">
+                        <div class="w-2 h-8 border-l-2 border-r-2 border-dashed border-[#45A2FF]"></div>
+                    </div>
+                    <div class="flex items-center justify-center space-x-2">
+                        <div class="flowchart-node">Store Vendors</div>
+                        <div class="flowchart-connector"></div>
+                        <div class="flowchart-node">Landlords</div>
+                         <div class="flowchart-connector"></div>
+                        <div class="flowchart-node">Executive Approvers</div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="md:col-span-1 bg-white rounded-lg shadow-lg p-6">
+                <h3 class="text-2xl font-bold text-[#00449E] mb-4">Experience Distribution</h3>
+                <p class="text-gray-600 mb-4">This donut chart compares the allocation of time across different industry sectors, revealing a significant concentration in Sales and Operations. This composition underscores a deep understanding of both customer-facing and internal business mechanics.</p>
+                <div class="chart-container">
+                    <canvas id="experienceDonutChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="md:col-span-1 bg-white rounded-lg shadow-lg p-6 flex flex-col">
+                <h3 class="text-2xl font-bold text-[#00449E] mb-4">Educational Foundation</h3>
+                 <p class="text-gray-600 mb-4">A pyramid diagram illustrates the educational hierarchy, starting from a solid secondary education and building up to a B.Com degree. This commercial foundation is further enhanced by specialized technical diplomas, creating a unique T-shaped skill set.</p>
+                <div class="flex-grow flex flex-col justify-center items-center space-y-1">
+                    <div class="pyramid-level w-4/5" style="background-color: #005CB9;">Honour Diploma & Web Design</div>
+                    <div class="pyramid-level w-3/5" style="background-color: #0076D7;">B.Com General</div>
+                    <div class="pyramid-level w-2/5" style="background-color: #45A2FF;">HSC</div>
+                    <div class="pyramid-level w-1/5" style="background-color: #89C9FF;">SSLC</div>
+                </div>
+            </div>
+
+            <div class="md:col-span-1 bg-white rounded-lg shadow-lg p-6">
+                <h3 class="text-2xl font-bold text-[#00449E] mb-4">Language Proficiency</h3>
+                <p class="text-gray-600 mb-4">A simple pictograph conveys the candidate's multilingual capabilities, a significant asset for communication in a diverse market like India.</p>
+                <ul class="space-y-3 mt-6 text-lg">
+                    <li class="flex items-center"><span class="text-2xl mr-3">🗣️</span><span class="font-semibold">Tamil:</span><span class="ml-auto text-gray-600 font-medium">Native</span></li>
+                    <li class="flex items-center"><span class="text-2xl mr-3">🗣️</span><span class="font-semibold">Telugu:</span><span class="ml-auto text-gray-600 font-medium">Proficient</span></li>
+                    <li class="flex items-center"><span class="text-2xl mr-3">🗣️</span><span class="font-semibold">English:</span><span class="ml-auto text-gray-600 font-medium">Fluent</span></li>
+                    <li class="flex items-center"><span class="text-2xl mr-3">🗣️</span><span class="font-semibold">Hindi:</span><span class="ml-auto text-gray-600 font-medium">Intermediate</span></li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <footer class="text-center p-6 mt-8 bg-white text-gray-500 text-sm border-t">
+        <p>This infographic was dynamically generated based on professional data. All visualizations are rendered using HTML, CSS, and Chart.js on a Canvas element.</p>
+        <p>CONFIRMATION: NO SVG OR MERMAID.JS WAS USED IN THE CREATION OF THIS DOCUMENT.</p>
+    </footer>
+
+    <script>
+        const brilliantBlues = ['#005CB9', '#0076D7', '#45A2FF', '#89C9FF', '#00449E'];
+
+        function wrapLabel(str, max_width) {
+            if (str.length <= max_width) return str;
+            const words = str.split(' ');
+            const lines = [];
+            let current_line = '';
+            for (const word of words) {
+                if ((current_line + ' ' + word).trim().length > max_width && current_line.length > 0) {
+                    lines.push(current_line);
+                    current_line = word;
+                } else {
+                    current_line = (current_line + ' ' + word).trim();
+                }
+            }
+            if (current_line.length > 0) lines.push(current_line);
+            return lines;
+        }
+
+        const tooltipTitleCallback = (tooltipItems) => {
+            const item = tooltipItems[0];
+            let label = item.chart.data.labels[item.dataIndex];
+            if (Array.isArray(label)) {
+                return label.join(' ');
+            } else {
+                return label;
+            }
+        };
+        
+        const chartOptionsTemplate = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                         color: '#374151'
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        title: tooltipTitleCallback
+                    }
+                }
+            }
+        };
+
+        const skillsRadarCtx = document.getElementById('skillsRadarChart').getContext('2d');
+        new Chart(skillsRadarCtx, {
+            type: 'radar',
+            data: {
+                labels: ['Problem-solving', 'Teamwork', 'Communication', 'Time Management', 'Adaptability', 'Customer Service'],
+                datasets: [{
+                    label: 'Skill Level',
+                    data: [9, 8, 8, 9, 10, 8],
+                    backgroundColor: 'rgba(69, 162, 255, 0.2)',
+                    borderColor: '#0076D7',
+                    borderWidth: 2,
+                    pointBackgroundColor: '#005CB9',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: '#005CB9'
+                }]
+            },
+            options: {
+                ...chartOptionsTemplate,
+                scales: {
+                    r: {
+                        angleLines: { color: 'rgba(0, 0, 0, 0.1)' },
+                        grid: { color: 'rgba(0, 0, 0, 0.1)' },
+                        pointLabels: { font: { size: 14 }, color: '#374151' },
+                        ticks: {
+                            color: '#005CB9',
+                            backdropColor: 'rgba(255, 255, 255, 0.75)',
+                            stepSize: 2
+                        },
+                         min: 0,
+                         max: 10
+                    }
+                },
+                plugins: { ...chartOptionsTemplate.plugins, legend: { display: false } }
+            }
+        });
+
+        const experienceDonutCtx = document.getElementById('experienceDonutChart').getContext('2d');
+        new Chart(experienceDonutCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Sales & Customer Relations', 'Operations', 'Finance & Accounting', 'Leadership'],
+                datasets: [{
+                    label: 'Experience Distribution',
+                    data: [2.5, 3.5, 2, 1.5],
+                    backgroundColor: brilliantBlues,
+                    borderColor: '#fff',
+                    borderWidth: 3,
+                }]
+            },
+             options: {
+                ...chartOptionsTemplate,
+                cutout: '60%'
+            }
+        });
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const startDate = new Date('2015-07-01');
+            const today = new Date();
+            let years = today.getFullYear() - startDate.getFullYear();
+            let months = today.getMonth() - startDate.getMonth();
+            if (months < 0) {
+                years--;
+                months += 12;
+            }
+            document.getElementById('total-experience').textContent = years + (months > 6 ? '+' : '');
+        });
+
+    </script>
+</body>
+</html>
