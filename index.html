@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,311 +10,356 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary-dark: #00449E;
+            --primary-main: #005CB9;
+            --primary-light: #45A2FF;
+            --primary-accent: #89C9FF;
+            --background-light: #f0f4f8;
+            --card-background: #ffffff;
+            --text-primary: #1f2937;
+            --text-secondary: #4b5563;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f0f4f8;
+            background-color: var(--background-light);
+            color: var(--text-primary);
         }
-        .chart-container {
-            position: relative;
+
+        #spotlight {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            height: 320px;
-            max-height: 400px;
+            height: 100%;
+            pointer-events: none;
+            z-index: 100;
+            background: radial-gradient(circle at var(--x) var(--y), transparent 100px, rgba(0, 0, 0, 0.85) 400px);
+            opacity: 0;
+            transition: opacity 0.5s ease;
         }
-        @media (min-width: 768px) {
-            .chart-container {
-                height: 350px;
-            }
+        body:hover #spotlight { opacity: 0.1; }
+
+        #scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-light), var(--primary-main));
+            width: 0%;
+            z-index: 101;
+            transition: width 0.1s linear;
         }
-        .text-shadow-custom {
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+
+        .animate-on-scroll { opacity: 0; transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+        .slide-in-up { transform: translateY(30px); }
+        .slide-in-left { transform: translateX(-30px); }
+        .slide-in-right { transform: translateX(30px); }
+        
+        .animate-on-scroll.is-visible {
+            opacity: 1;
+            transform: translate(0, 0);
         }
-        .kpi-value {
-            font-weight: 900;
-            color: #005CB9;
+        
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(69, 162, 255, 0.7); }
+            50% { box-shadow: 0 0 0 10px rgba(69, 162, 255, 0); }
         }
-        .flowchart-node {
-            border: 2px solid #45A2FF;
-            background-color: #f0f8ff;
-            color: #00449E;
-            border-radius: 0.5rem;
-            padding: 1rem;
-            text-align: center;
-            font-weight: 600;
-            flex-grow: 1;
+        .pulse-animation { animation: pulse 2.5s infinite; }
+
+        .card { transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; }
+        .card:hover { transform: translateY(-8px); box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1); }
+        
+        .timeline-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out, margin-top 0.5s ease-in-out;
         }
-        .flowchart-connector {
-            flex-grow: 1;
-            border-bottom: 2px dashed #45A2FF;
-            position: relative;
-            min-width: 2rem;
+        .timeline-details.is-open {
+            margin-top: 1rem;
         }
+
+        /* --- FIXED PYRAMID STYLE --- */
         .pyramid-level {
-            clip-path: polygon(15% 0, 85% 0, 100% 100%, 0% 100%);
-            text-align: center;
-            padding-top: 0.5rem;
-            padding-bottom: 0.5rem;
-            font-weight: 600;
+            clip-path: polygon(10% 0, 90% 0, 100% 100%, 0% 100%); /* Widened top to prevent clipping */
             color: white;
+            transition: transform 0.3s ease, filter 0.3s ease;
+            text-align: center;
         }
+        .pyramid-level:hover { transform: scale(1.08); filter: brightness(1.1); }
+        
+        /* Other styles from previous version */
+        .chart-container { position: relative; width: 100%; max-width: 600px; margin-left: auto; margin-right: auto; height: 300px; max-height: 400px; }
+        @media (min-width: 768px) { .chart-container { height: 350px; } }
+        .kpi-value { font-weight: 900; color: var(--primary-main); }
+        .gradient-text { background: linear-gradient(45deg, var(--primary-light), var(--primary-main)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-fill-color: transparent; }
+        .flowchart-node { border: 2px solid var(--primary-light); background-color: #f0f8ff; color: var(--primary-dark); transition: all 0.3s ease; }
+        .flowchart-node:hover { transform: scale(1.05); box-shadow: 0 4px 15px rgba(69, 162, 255, 0.4); }
+        .flowchart-connector { flex-grow: 1; background-image: linear-gradient(to right, var(--primary-light) 50%, transparent 50%); background-size: 16px 2px; background-repeat: repeat-x; height: 2px; border: none; }
+        .timeline-dot { transition: transform 0.3s ease; }
+        .timeline-item:hover .timeline-dot { transform: scale(1.5); }
+        .lang-bar-bg { background-color: #e0e7ff; border-radius: 999px; overflow: hidden; height: 0.75rem; }
+        .lang-bar { background: linear-gradient(90deg, var(--primary-light), var(--primary-main)); height: 100%; border-radius: 999px; }
+        .flowchart-connector-vertical { width: 2px; min-height: 2rem; background-image: linear-gradient(to bottom, var(--primary-light) 50%, transparent 50%); background-size: 2px 16px; background-repeat: repeat-y; }
     </style>
 </head>
 <body class="text-gray-800">
+    <div id="spotlight"></div>
+    <div id="scroll-progress"></div>
 
-    <header class="bg-white shadow-md sticky top-0 z-50">
+    <header class="bg-white/80 backdrop-blur-lg shadow-sm sticky top-0 z-50 transition-all duration-300">
         <div class="container mx-auto px-6 py-4">
-            <h1 class="text-3xl font-bold text-[#00449E] text-shadow-custom">Professional Career Analysis</h1>
-            <p class="text-lg text-gray-600">Deep Dive: Prabu Kumar B.</p>
+            <h1 class="text-2xl md:text-3xl font-bold text-gray-800 tracking-tight">Professional Career Analysis</h1>
+            <p class="text-md md:text-lg text-gray-500">Prabu Kumar B.</p>
         </div>
     </header>
 
     <main class="container mx-auto p-4 md:p-8">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-            <div class="lg:col-span-3 bg-white rounded-lg shadow-lg p-6 flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-8">
-                <div class="text-center md:text-left">
-                    <h2 class="text-4xl font-bold text-[#00449E]">Prabu Kumar B.</h2>
-                    <p class="text-lg text-gray-500">Backend Operations & Management Specialist</p>
-                    <div class="mt-4 flex flex-wrap justify-center md:justify-start gap-x-4 gap-y-2 text-sm text-gray-700">
-                        <span>📞 8978837718</span>
-                        <span>✉️ prabukumarbalasani@gmail.com</span>
-                        <span>📍 Chennai, India</span>
+            <div class="lg:col-span-3 bg-white rounded-xl shadow-lg p-6 flex flex-col md:flex-row items-center space-y-6 md:space-y-0 md:space-x-8 card animate-on-scroll slide-in-up">
+                <div class="text-center md:text-left flex-1">
+                    <h2 class="text-4xl md:text-5xl font-black gradient-text">Prabu Kumar B.</h2>
+                    <p class="text-lg md:text-xl text-gray-500 mt-1">Backend Operations & Management Specialist</p>
+                    <div class="mt-6 flex flex-col sm:flex-row flex-wrap justify-center md:justify-start gap-x-6 gap-y-3 text-sm text-gray-700 items-center">
+                        <span class="flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-500" viewBox="0 0 20 20" fill="currentColor"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.518.759a1.65 1.65 0 00-1.846 2.401l.797 1.595a1 1 0 01-.578 1.248l-2.118.976a1 1 0 01-1.248-.578l-.798-1.595A1.65 1.65 0 001.21 8.85l1.518-.759a1 1 0 011.06-.54l-.74-4.435A1 1 0 012 3z" /></svg> 8978837718</span>
+                        <span class="flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-500" viewBox="0 0 20 20" fill="currentColor"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" /><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" /></svg> prabukumarbalasani@gmail.com</span>
+                        <span class="flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-500" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" /></svg> Chennai, India</span>
                     </div>
                 </div>
-                <div class="flex-grow"></div>
-                <div class="text-center p-6 bg-blue-50 rounded-lg border-2 border-dashed border-[#45A2FF]">
-                    <p class="text-lg font-semibold text-[#005CB9]">Total Professional Experience</p>
-                    <p id="total-experience" class="text-7xl kpi-value">9+</p>
-                    <p class="text-xl font-semibold text-[#005CB9]">Years</p>
-                </div>
-            </div>
-
-            <div class="md:col-span-2 lg:col-span-1 bg-white rounded-lg shadow-lg p-6">
-                <h3 class="text-2xl font-bold text-[#00449E] mb-4">Core Competency Matrix</h3>
-                <p class="text-gray-600 mb-4">This radar chart visualizes the relationships between key professional skills, demonstrating a well-rounded and balanced competency profile essential for operational and managerial roles. His strengths in problem-solving and communication are foundational to his success.</p>
-                <div class="chart-container">
-                    <canvas id="skillsRadarChart"></canvas>
+                <div class="text-center p-6 bg-blue-50 rounded-lg border-2 border-dashed border-primary-light flex-shrink-0">
+                    <p class="text-lg font-semibold text-primary-main">Total Experience</p>
+                    <p id="total-experience" class="text-7xl kpi-value">0+</p>
+                    <p class="text-xl font-semibold text-primary-main">Years</p>
                 </div>
             </div>
 
-            <div class="md:col-span-2 lg:col-span-2 bg-white rounded-lg shadow-lg p-6">
-                 <h3 class="text-2xl font-bold text-[#00449E] mb-4">Career Trajectory Analysis</h3>
-                 <p class="text-gray-600 mb-4">The professional timeline illustrates a clear pattern of growth and diversification. Starting from a focused role in financial recovery, the trajectory moves through sales, specialized operational management, and accounting, culminating in a senior backend operations role. This indicates a consistent drive for new challenges and skill acquisition.</p>
-                 <div class="relative mt-5">
-                    <div class="border-l-4 border-[#45A2FF] absolute h-full top-0 left-4"></div>
-                    <div class="mb-8 pl-12 relative">
-                        <div class="absolute w-6 h-6 bg-[#005CB9] rounded-full mt-1 -left-3 border-4 border-white"></div>
-                        <p class="font-bold text-lg text-[#005CB9]">Nov 2022 – Present</p>
-                        <h4 class="font-semibold text-xl">Backend Executive Officer</h4>
-                        <p class="text-md text-gray-600">Go Fashion India Limited</p>
+            <div class="md:col-span-2 lg:col-span-1 bg-white rounded-xl shadow-lg p-6 card animate-on-scroll slide-in-left">
+                <h3 class="text-2xl font-bold text-primary-dark mb-4">Core Competency Matrix</h3>
+                <p class="text-text-secondary mb-4 text-sm">A visualization of key professional skills, demonstrating a well-rounded profile for operational success.</p>
+                <div class="chart-container"><canvas id="skillsRadarChart"></canvas></div>
+            </div>
+
+            <div class="md:col-span-2 bg-white rounded-xl shadow-lg p-6 card animate-on-scroll slide-in-right">
+                 <h3 class="text-2xl font-bold text-primary-dark mb-4">Career Trajectory Analysis</h3>
+                 <p class="text-text-secondary mb-4 text-sm">An interactive timeline illustrating a clear pattern of growth, skill acquisition, and increasing responsibility.</p>
+                 <div class="relative mt-5 border-l-4 border-primary-light">
+                    <!-- Timeline Item -->
+                    <div class="mb-8 pl-8 relative timeline-item animate-on-scroll slide-in-right">
+                        <div class="absolute w-6 h-6 bg-primary-main rounded-full mt-1.5 -left-3.5 border-4 border-white timeline-dot"></div>
+                        <p class="font-bold text-md text-primary-main">Nov 2022 – Present</p>
+                        <h4 class="font-semibold text-xl text-gray-800">Backend Executive Officer</h4>
+                        <p class="text-md text-text-secondary">Go Fashion India Limited</p>
+                        <a href="#" class="text-sm font-semibold text-primary-light hover:text-primary-main timeline-toggle">Show Details »</a>
+                        <div class="timeline-details" id="details-1">
+                            <ul class="list-disc pl-5 text-sm text-text-secondary space-y-1">
+                                <li>Oversee and resolve operational issues for 60+ stores across Tamil Nadu.</li>
+                                <li>Act as the primary liaison between store managers, regional heads, and corporate.</li>
+                                <li>Manage vendor payments, landlord communications, and new store opening logistics.</li>
+                            </ul>
+                        </div>
                     </div>
-                    <div class="mb-8 pl-12 relative">
-                        <div class="absolute w-6 h-6 bg-[#0076D7] rounded-full mt-1 -left-3 border-4 border-white"></div>
-                        <p class="font-bold text-lg text-[#0076D7]">Aug 2021 – Oct 2022</p>
-                        <h4 class="font-semibold text-xl">Account Assistant</h4>
-                        <p class="text-md text-gray-600">DM SOURCE EXIM</p>
+                    <!-- Timeline Item -->
+                    <div class="mb-8 pl-8 relative timeline-item animate-on-scroll slide-in-right">
+                        <div class="absolute w-6 h-6 bg-blue-500 rounded-full mt-1.5 -left-3.5 border-4 border-white timeline-dot"></div>
+                        <p class="font-bold text-md text-blue-500">Aug 2021 – Oct 2022</p>
+                        <h4 class="font-semibold text-xl text-gray-800">Account Assistant</h4>
+                        <p class="text-md text-text-secondary">DM SOURCE EXIM</p>
+                        <a href="#" class="text-sm font-semibold text-primary-light hover:text-primary-main timeline-toggle">Show Details »</a>
+                        <div class="timeline-details" id="details-2">
+                             <ul class="list-disc pl-5 text-sm text-text-secondary space-y-1">
+                                <li>Handled accounts payable/receivable and maintained financial records.</li>
+                                <li>Prepared GST filings and assisted with financial statement generation.</li>
+                                <li>Managed Tally entries and supported payroll processing.</li>
+                            </ul>
+                        </div>
                     </div>
-                    <div class="mb-8 pl-12 relative">
-                        <div class="absolute w-6 h-6 bg-[#45A2FF] rounded-full mt-1 -left-3 border-4 border-white"></div>
-                        <p class="font-bold text-lg text-[#45A2FF]">Oct 2019 – May 2021</p>
+                    <!-- Add more items with details similarly -->
+                     <div class="mb-8 pl-8 relative timeline-item animate-on-scroll slide-in-right">
+                        <div class="absolute w-6 h-6 bg-primary-light rounded-full mt-1.5 -left-3.5 border-4 border-white timeline-dot"></div>
+                        <p class="font-bold text-md text-primary-light">Oct 2019 – May 2021</p>
                         <h4 class="font-semibold text-xl">Supervisor & In Charge</h4>
                         <p class="text-md text-gray-600">Savitri Shrimps</p>
                     </div>
-                     <div class="mb-8 pl-12 relative">
-                        <div class="absolute w-6 h-6 bg-[#89C9FF] rounded-full mt-1 -left-3 border-4 border-white"></div>
-                        <p class="font-bold text-lg text-[#89C9FF]">Mar 2017 – Sep 2019</p>
+                     <div class="mb-8 pl-8 relative timeline-item animate-on-scroll slide-in-right">
+                        <div class="absolute w-6 h-6 bg-primary-accent rounded-full mt-1.5 -left-3.5 border-4 border-white timeline-dot"></div>
+                        <p class="font-bold text-md text-primary-accent">Mar 2017 – Sep 2019</p>
                         <h4 class="font-semibold text-xl">Sales Manager</h4>
                         <p class="text-md text-gray-600">TAPASYA MOTORS</p>
                     </div>
-                     <div class="pl-12 relative">
-                        <div class="absolute w-6 h-6 bg-gray-400 rounded-full mt-1 -left-3 border-4 border-white"></div>
-                        <p class="font-bold text-lg text-gray-500">Jul 2015 – Dec 2016</p>
-                        <h4 class="font-semibold text-xl">Bank Recovery Process</h4>
-                        <p class="text-md text-gray-600">LUCRE MANAGEMENT</p>
-                    </div>
-                </div>
+                 </div>
             </div>
             
-            <div class="md:col-span-2 lg:col-span-3 bg-white rounded-lg shadow-lg p-6">
-                <h3 class="text-2xl font-bold text-[#00449E] mb-4">Operational Process Flow (Current Role)</h3>
-                <p class="text-gray-600 mb-6">This chart organizes the complex responsibilities of the Backend Executive Officer. It showcases the central role of leadership in coordinating between front-end teams, regional management, and external stakeholders like vendors and landlords. The flow highlights a focus on problem resolution, financial oversight, and strategic growth initiatives.</p>
-                <div class="flex flex-col space-y-4">
-                    <div class="flex items-center justify-center space-x-2">
-                        <div class="flowchart-node">Front-End Teams</div>
-                         <div class="flowchart-connector"></div>
-                        <div class="flowchart-node bg-[#005CB9] text-white shadow-lg">Leadership & Resolution (Prabu)</div>
-                         <div class="flowchart-connector"></div>
-                        <div class="flowchart-node">Area/Regional Managers</div>
+            <div class="lg:col-span-3 bg-white rounded-xl shadow-lg p-6 card animate-on-scroll slide-in-up">
+                <h3 class="text-2xl font-bold text-primary-dark mb-4">Operational Process Flow (Current Role)</h3>
+                <p class="text-text-secondary mb-6 text-sm">A dynamic view of the central leadership role coordinating diverse teams and stakeholders for resolution and growth.</p>
+                <!-- Responsive Flowchart -->
+                <div class="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-4">
+                    <!-- Left Column (or Top on Mobile) -->
+                    <div class="flowchart-node rounded-lg p-4 text-center font-semibold w-full md:w-1/4">Front-End Teams</div>
+                    <div class="flowchart-connector-vertical md:hidden"></div>
+                    <div class="flowchart-connector hidden md:block"></div>
+                    <!-- Center Column -->
+                    <div class="flex flex-col items-center space-y-4 w-full md:w-auto">
+                        <div class="flowchart-node rounded-lg p-4 text-center font-bold bg-primary-main text-white shadow-lg pulse-animation">Leadership & Resolution (Prabu)</div>
+                        <div class="flowchart-connector-vertical"></div>
+                        <div class="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-4 w-full">
+                            <div class="flowchart-node rounded-lg p-3 text-center font-semibold w-full md:w-auto">Vendors</div>
+                             <div class="flowchart-connector-vertical md:hidden"></div>
+                             <div class="flowchart-connector hidden md:block" style="min-width: 1rem;"></div>
+                            <div class="flowchart-node rounded-lg p-3 text-center font-semibold w-full md:w-auto">Landlords</div>
+                             <div class="flowchart-connector-vertical md:hidden"></div>
+                             <div class="flowchart-connector hidden md:block" style="min-width: 1rem;"></div>
+                            <div class="flowchart-node rounded-lg p-3 text-center font-semibold w-full md:w-auto">Approvers</div>
+                        </div>
                     </div>
-                    <div class="flex justify-center">
-                        <div class="w-2 h-8 border-l-2 border-r-2 border-dashed border-[#45A2FF]"></div>
-                    </div>
-                    <div class="flex items-center justify-center space-x-2">
-                        <div class="flowchart-node">Store Vendors</div>
-                        <div class="flowchart-connector"></div>
-                        <div class="flowchart-node">Landlords</div>
-                         <div class="flowchart-connector"></div>
-                        <div class="flowchart-node">Executive Approvers</div>
-                    </div>
+                    <!-- Right Column (or Bottom on Mobile) -->
+                    <div class="flowchart-connector-vertical md:hidden"></div>
+                    <div class="flowchart-connector hidden md:block"></div>
+                    <div class="flowchart-node rounded-lg p-4 text-center font-semibold w-full md:w-1/4">Area/Regional Managers</div>
                 </div>
             </div>
 
-
-            <div class="md:col-span-1 bg-white rounded-lg shadow-lg p-6">
-                <h3 class="text-2xl font-bold text-[#00449E] mb-4">Experience Distribution</h3>
-                <p class="text-gray-600 mb-4">This donut chart compares the allocation of time across different industry sectors, revealing a significant concentration in Sales and Operations. This composition underscores a deep understanding of both customer-facing and internal business mechanics.</p>
-                <div class="chart-container">
-                    <canvas id="experienceDonutChart"></canvas>
-                </div>
+            <div class="md:col-span-1 bg-white rounded-xl shadow-lg p-6 card animate-on-scroll slide-in-left">
+                <h3 class="text-2xl font-bold text-primary-dark mb-4">Experience Distribution</h3>
+                <p class="text-text-secondary mb-4 text-sm">A breakdown of time allocation across different industry sectors.</p>
+                <div class="chart-container"><canvas id="experienceDonutChart"></canvas></div>
             </div>
             
-            <div class="md:col-span-1 bg-white rounded-lg shadow-lg p-6 flex flex-col">
-                <h3 class="text-2xl font-bold text-[#00449E] mb-4">Educational Foundation</h3>
-                 <p class="text-gray-600 mb-4">A pyramid diagram illustrates the educational hierarchy, starting from a solid secondary education and building up to a B.Com degree. This commercial foundation is further enhanced by specialized technical diplomas, creating a unique T-shaped skill set.</p>
+            <div class="md:col-span-1 bg-white rounded-xl shadow-lg p-6 flex flex-col card animate-on-scroll slide-in-up">
+                <h3 class="text-2xl font-bold text-primary-dark mb-4">Educational Foundation</h3>
+                <p class="text-text-secondary mb-4 text-sm">A versatile, T-shaped skill set built upon a solid educational hierarchy.</p>
+                <!-- FIXED PYRAMID -->
                 <div class="flex-grow flex flex-col justify-center items-center space-y-1">
-                    <div class="pyramid-level w-4/5" style="background-color: #005CB9;">Honour Diploma & Web Design</div>
-                    <div class="pyramid-level w-3/5" style="background-color: #0076D7;">B.Com General</div>
-                    <div class="pyramid-level w-2/5" style="background-color: #45A2FF;">HSC</div>
-                    <div class="pyramid-level w-1/5" style="background-color: #89C9FF;">SSLC</div>
+                    <div class="pyramid-level w-full max-w-xs py-2 px-6 text-xs sm:text-sm font-semibold" style="background-color: var(--primary-main);">Honour Diploma & Web Design</div>
+                    <div class="pyramid-level w-full max-w-[16rem] py-2 px-6 text-xs sm:text-sm font-semibold" style="background-color: #0076D7;">B.Com General</div>
+                    <div class="pyramid-level w-full max-w-[12rem] py-2 px-4 text-xs sm:text-sm font-semibold" style="background-color: var(--primary-light);">HSC</div>
+                    <div class="pyramid-level w-full max-w-[8rem] py-1 px-4 text-xs sm:text-sm font-semibold" style="background-color: var(--primary-accent);">SSLC</div>
                 </div>
             </div>
 
-            <div class="md:col-span-1 bg-white rounded-lg shadow-lg p-6">
-                <h3 class="text-2xl font-bold text-[#00449E] mb-4">Language Proficiency</h3>
-                <p class="text-gray-600 mb-4">A simple pictograph conveys the candidate's multilingual capabilities, a significant asset for communication in a diverse market like India.</p>
-                <ul class="space-y-3 mt-6 text-lg">
-                    <li class="flex items-center"><span class="text-2xl mr-3">🗣️</span><span class="font-semibold">Tamil:</span><span class="ml-auto text-gray-600 font-medium">Native</span></li>
-                    <li class="flex items-center"><span class="text-2xl mr-3">🗣️</span><span class="font-semibold">Telugu:</span><span class="ml-auto text-gray-600 font-medium">Proficient</span></li>
-                    <li class="flex items-center"><span class="text-2xl mr-3">🗣️</span><span class="font-semibold">English:</span><span class="ml-auto text-gray-600 font-medium">Fluent</span></li>
-                    <li class="flex items-center"><span class="text-2xl mr-3">🗣️</span><span class="font-semibold">Hindi:</span><span class="ml-auto text-gray-600 font-medium">Intermediate</span></li>
+            <div class="md:col-span-1 bg-white rounded-xl shadow-lg p-6 card animate-on-scroll slide-in-right">
+                <h3 class="text-2xl font-bold text-primary-dark mb-4">Language Proficiency</h3>
+                <p class="text-text-secondary mb-4 text-sm">Multilingual capabilities for effective communication in a diverse market.</p>
+                <ul class="space-y-5 mt-6 text-lg">
+                    <li>
+                        <div class="flex justify-between items-center mb-1"><span class="font-semibold text-md text-gray-700">Tamil</span><span class="text-sm font-medium text-primary-main">Native</span></div>
+                        <div class="lang-bar-bg"><div class="lang-bar" style="width: 100%;"></div></div>
+                    </li>
+                    <li>
+                        <div class="flex justify-between items-center mb-1"><span class="font-semibold text-md text-gray-700">English</span><span class="text-sm font-medium text-primary-main">Fluent</span></div>
+                        <div class="lang-bar-bg"><div class="lang-bar" style="width: 90%;"></div></div>
+                    </li>
+                    <li>
+                        <div class="flex justify-between items-center mb-1"><span class="font-semibold text-md text-gray-700">Telugu</span><span class="text-sm font-medium text-primary-main">Proficient</span></div>
+                        <div class="lang-bar-bg"><div class="lang-bar" style="width: 80%;"></div></div>
+                    </li>
+                    <li>
+                        <div class="flex justify-between items-center mb-1"><span class="font-semibold text-md text-gray-700">Hindi</span><span class="text-sm font-medium text-primary-main">Intermediate</span></div>
+                        <div class="lang-bar-bg"><div class="lang-bar" style="width: 50%;"></div></div>
+                    </li>
                 </ul>
             </div>
         </div>
     </main>
 
     <footer class="text-center p-6 mt-8 bg-white text-gray-500 text-sm border-t">
-        <p>This infographic was dynamically generated based on professional data. All visualizations are rendered using HTML, CSS, and Chart.js on a Canvas element.</p>
-        <p>CONFIRMATION: NO SVG OR MERMAID.JS WAS USED IN THE CREATION OF THIS DOCUMENT.</p>
+        <p>This interactive resume was dynamically generated to showcase the professional profile of Prabu Kumar B.</p>
+        <p>All visualizations are rendered using HTML, Tailwind CSS, and Chart.js.</p>
     </footer>
 
     <script>
-        const brilliantBlues = ['#005CB9', '#0076D7', '#45A2FF', '#89C9FF', '#00449E'];
-
-        function wrapLabel(str, max_width) {
-            if (str.length <= max_width) return str;
-            const words = str.split(' ');
-            const lines = [];
-            let current_line = '';
-            for (const word of words) {
-                if ((current_line + ' ' + word).trim().length > max_width && current_line.length > 0) {
-                    lines.push(current_line);
-                    current_line = word;
-                } else {
-                    current_line = (current_line + ' ' + word).trim();
-                }
-            }
-            if (current_line.length > 0) lines.push(current_line);
-            return lines;
-        }
-
-        const tooltipTitleCallback = (tooltipItems) => {
-            const item = tooltipItems[0];
-            let label = item.chart.data.labels[item.dataIndex];
-            if (Array.isArray(label)) {
-                return label.join(' ');
-            } else {
-                return label;
-            }
-        };
-        
-        const chartOptionsTemplate = {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    position: 'bottom',
-                    labels: {
-                         color: '#374151'
-                    }
-                },
-                tooltip: {
-                    callbacks: {
-                        title: tooltipTitleCallback
-                    }
-                }
-            }
-        };
-
-        const skillsRadarCtx = document.getElementById('skillsRadarChart').getContext('2d');
-        new Chart(skillsRadarCtx, {
-            type: 'radar',
-            data: {
-                labels: ['Problem-solving', 'Teamwork', 'Communication', 'Time Management', 'Adaptability', 'Customer Service'],
-                datasets: [{
-                    label: 'Skill Level',
-                    data: [9, 8, 8, 9, 10, 8],
-                    backgroundColor: 'rgba(69, 162, 255, 0.2)',
-                    borderColor: '#0076D7',
-                    borderWidth: 2,
-                    pointBackgroundColor: '#005CB9',
-                    pointBorderColor: '#fff',
-                    pointHoverBackgroundColor: '#fff',
-                    pointHoverBorderColor: '#005CB9'
-                }]
-            },
-            options: {
-                ...chartOptionsTemplate,
-                scales: {
-                    r: {
-                        angleLines: { color: 'rgba(0, 0, 0, 0.1)' },
-                        grid: { color: 'rgba(0, 0, 0, 0.1)' },
-                        pointLabels: { font: { size: 14 }, color: '#374151' },
-                        ticks: {
-                            color: '#005CB9',
-                            backdropColor: 'rgba(255, 255, 255, 0.75)',
-                            stepSize: 2
-                        },
-                         min: 0,
-                         max: 10
-                    }
-                },
-                plugins: { ...chartOptionsTemplate.plugins, legend: { display: false } }
-            }
-        });
-
-        const experienceDonutCtx = document.getElementById('experienceDonutChart').getContext('2d');
-        new Chart(experienceDonutCtx, {
-            type: 'doughnut',
-            data: {
-                labels: ['Sales & Customer Relations', 'Operations', 'Finance & Accounting', 'Leadership'],
-                datasets: [{
-                    label: 'Experience Distribution',
-                    data: [2.5, 3.5, 2, 1.5],
-                    backgroundColor: brilliantBlues,
-                    borderColor: '#fff',
-                    borderWidth: 3,
-                }]
-            },
-             options: {
-                ...chartOptionsTemplate,
-                cutout: '60%'
-            }
-        });
-        
         document.addEventListener('DOMContentLoaded', function() {
-            const startDate = new Date('2015-07-01');
-            const today = new Date();
-            let years = today.getFullYear() - startDate.getFullYear();
-            let months = today.getMonth() - startDate.getMonth();
-            if (months < 0) {
-                years--;
-                months += 12;
-            }
-            document.getElementById('total-experience').textContent = years + (months > 6 ? '+' : '');
-        });
+            // --- DYNAMIC & INTERACTIVE ELEMENTS ---
 
+            // 1. Mouse Spotlight Effect
+            const spotlight = document.getElementById('spotlight');
+            window.addEventListener('mousemove', e => {
+                spotlight.style.setProperty('--x', e.clientX + 'px');
+                spotlight.style.setProperty('--y', e.clientY + 'px');
+            });
+
+            // 2. Scroll Progress Bar
+            const scrollProgress = document.getElementById('scroll-progress');
+            window.addEventListener('scroll', () => {
+                const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrolled = (window.scrollY / scrollableHeight) * 100;
+                scrollProgress.style.width = scrolled + '%';
+            });
+
+            // 3. Animated Counter for Total Experience
+            const experienceElement = document.getElementById('total-experience');
+            const animateCounter = (el, end, duration) => {
+                if (el.animated) return;
+                el.animated = true;
+                let start = 0;
+                let startTimestamp = null;
+                const step = (timestamp) => {
+                    if (!startTimestamp) startTimestamp = timestamp;
+                    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                    el.textContent = Math.floor(progress * (end - start) + start) + '+';
+                    if (progress < 1) window.requestAnimationFrame(step);
+                };
+                window.requestAnimationFrame(step);
+            };
+
+            // 4. Advanced Scroll-Triggered Animations
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        
+                        if (entry.target.id === 'total-experience') {
+                            const startDate = new Date('2015-07-01');
+                            const years = new Date(new Date() - startDate).getFullYear() - 1970;
+                            animateCounter(entry.target, years, 1500);
+                        }
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+            observer.observe(experienceElement);
+
+            // 5. Interactive Timeline Toggles
+            document.querySelectorAll('.timeline-toggle').forEach(button => {
+                button.addEventListener('click', e => {
+                    e.preventDefault();
+                    const detailsDiv = button.nextElementSibling;
+                    const isOpen = detailsDiv.classList.toggle('is-open');
+                    if(isOpen) {
+                        detailsDiv.style.maxHeight = detailsDiv.scrollHeight + 'px';
+                        button.innerHTML = 'Show Less «';
+                    } else {
+                        detailsDiv.style.maxHeight = '0';
+                        button.innerHTML = 'Show Details »';
+                    }
+                });
+            });
+
+            // --- CHART.JS CONFIGURATION ---
+            const chartOptionsTemplate = {
+                responsive: true, maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom', labels: { color: '#374151', font: { family: "'Inter', sans-serif" } } },
+                    tooltip: { titleFont: { family: "'Inter', sans-serif" }, bodyFont: { family: "'Inter', sans-serif" } }
+                },
+                animation: { duration: 1200, easing: 'easeInOutQuart' }
+            };
+
+            new Chart(document.getElementById('skillsRadarChart'), {
+                type: 'radar',
+                data: { labels: ['Problem-solving', 'Teamwork', 'Communication', 'Time Management', 'Adaptability', 'Customer Service'], datasets: [{ label: 'Skill Level', data: [9, 8, 8, 9, 10, 8], backgroundColor: 'rgba(69, 162, 255, 0.2)', borderColor: '#0076D7', borderWidth: 2, pointBackgroundColor: '#005CB9' }] },
+                options: { ...chartOptionsTemplate, scales: { r: { angleLines: { color: 'rgba(0, 0, 0, 0.05)' }, grid: { color: 'rgba(0, 0, 0, 0.08)' }, pointLabels: { font: { size: 12 }, color: '#374151' }, ticks: { display: false, stepSize: 2 }, min: 0, max: 10 } }, plugins: { ...chartOptionsTemplate.plugins, legend: { display: false } } }
+            });
+            
+            new Chart(document.getElementById('experienceDonutChart'), {
+                type: 'doughnut',
+                data: { labels: ['Sales & Customer Relations', 'Operations', 'Finance & Accounting', 'Leadership'], datasets: [{ label: 'Years', data: [2.5, 3.5, 2, 1.5], backgroundColor: ['#005CB9', '#0076D7', '#45A2FF', '#89C9FF'], borderColor: '#fff', borderWidth: 4, hoverOffset: 10 }] },
+                options: { ...chartOptionsTemplate, cutout: '65%' }
+            });
+        });
     </script>
 </body>
 </html>
