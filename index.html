@@ -1,0 +1,336 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2575.6">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html lang="en"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;Career Trajectory Analysis: Prabu Kumar B.&lt;/title&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://cdn.jsdelivr.net/npm/chart.js"&gt;&lt;/script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;link rel="preconnect" href="https://fonts.googleapis.com"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;link rel="preconnect" href="https://fonts.gstatic.com" crossorigin&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>body {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-family: 'Inter', sans-serif;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-color: #f0f4f8;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.chart-container {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>position: relative;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>width: 100%;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>max-width: 600px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-left: auto;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-right: auto;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>height: 320px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>max-height: 400px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>@media (min-width: 768px) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>.chart-container {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>height: 350px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.text-shadow-custom {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>text-shadow: 2px 2px 4px rgba(0,0,0,0.1);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.kpi-value {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 900;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #005CB9;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.flowchart-node {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: 2px solid #45A2FF;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-color: #f0f8ff;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #00449E;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 0.5rem;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 1rem;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 600;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>flex-grow: 1;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.flowchart-connector {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>flex-grow: 1;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-bottom: 2px dashed #45A2FF;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>position: relative;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>min-width: 2rem;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.pyramid-level {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>clip-path: polygon(15% 0, 85% 0, 100% 100%, 0% 100%);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding-top: 0.5rem;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding-bottom: 0.5rem;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 600;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: white;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body class="text-gray-800"&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;header class="bg-white shadow-md sticky top-0 z-50"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="container mx-auto px-6 py-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;h1 class="text-3xl font-bold text-[#00449E] text-shadow-custom"&gt;Professional Career Analysis&lt;/h1&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;p class="text-lg text-gray-600"&gt;Deep Dive: Prabu Kumar B.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/header&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;main class="container mx-auto p-4 md:p-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="lg:col-span-3 bg-white rounded-lg shadow-lg p-6 flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="text-center md:text-left"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h2 class="text-4xl font-bold text-[#00449E]"&gt;Prabu Kumar B.&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p class="text-lg text-gray-500"&gt;Backend Operations &amp; Management Specialist&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="mt-4 flex flex-wrap justify-center md:justify-start gap-x-4 gap-y-2 text-sm text-gray-700"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span&gt;📞 8978837718&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span&gt;✉️ prabukumarbalasani@gmail.com&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span&gt;📍 Chennai, India&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="flex-grow"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="text-center p-6 bg-blue-50 rounded-lg border-2 border-dashed border-[#45A2FF]"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p class="text-lg font-semibold text-[#005CB9]"&gt;Total Professional Experience&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p id="total-experience" class="text-7xl kpi-value"&gt;9+&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p class="text-xl font-semibold text-[#005CB9]"&gt;Years&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="md:col-span-2 lg:col-span-1 bg-white rounded-lg shadow-lg p-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;h3 class="text-2xl font-bold text-[#00449E] mb-4"&gt;Core Competency Matrix&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;p class="text-gray-600 mb-4"&gt;This radar chart visualizes the relationships between key professional skills, demonstrating a well-rounded and balanced competency profile essential for operational and managerial roles. His strengths in problem-solving and communication are foundational to his success.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="chart-container"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;canvas id="skillsRadarChart"&gt;&lt;/canvas&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="md:col-span-2 lg:col-span-2 bg-white rounded-lg shadow-lg p-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                 </span>&lt;h3 class="text-2xl font-bold text-[#00449E] mb-4"&gt;Career Trajectory Analysis&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                 </span>&lt;p class="text-gray-600 mb-4"&gt;The professional timeline illustrates a clear pattern of growth and diversification. Starting from a focused role in financial recovery, the trajectory moves through sales, specialized operational management, and accounting, culminating in a senior backend operations role. This indicates a consistent drive for new challenges and skill acquisition.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                 </span>&lt;div class="relative mt-5"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="border-l-4 border-[#45A2FF] absolute h-full top-0 left-4"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="mb-8 pl-12 relative"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="absolute w-6 h-6 bg-[#005CB9] rounded-full mt-1 -left-3 border-4 border-white"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p class="font-bold text-lg text-[#005CB9]"&gt;Nov 2022 – Present&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;h4 class="font-semibold text-xl"&gt;Backend Executive Officer&lt;/h4&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p class="text-md text-gray-600"&gt;Go Fashion India Limited&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="mb-8 pl-12 relative"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="absolute w-6 h-6 bg-[#0076D7] rounded-full mt-1 -left-3 border-4 border-white"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p class="font-bold text-lg text-[#0076D7]"&gt;Aug 2021 – Oct 2022&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;h4 class="font-semibold text-xl"&gt;Account Assistant&lt;/h4&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p class="text-md text-gray-600"&gt;DM SOURCE EXIM&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="mb-8 pl-12 relative"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="absolute w-6 h-6 bg-[#45A2FF] rounded-full mt-1 -left-3 border-4 border-white"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p class="font-bold text-lg text-[#45A2FF]"&gt;Oct 2019 – May 2021&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;h4 class="font-semibold text-xl"&gt;Supervisor &amp; In Charge&lt;/h4&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p class="text-md text-gray-600"&gt;Savitri Shrimps&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                     </span>&lt;div class="mb-8 pl-12 relative"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="absolute w-6 h-6 bg-[#89C9FF] rounded-full mt-1 -left-3 border-4 border-white"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p class="font-bold text-lg text-[#89C9FF]"&gt;Mar 2017 – Sep 2019&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;h4 class="font-semibold text-xl"&gt;Sales Manager&lt;/h4&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p class="text-md text-gray-600"&gt;TAPASYA MOTORS&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                     </span>&lt;div class="pl-12 relative"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="absolute w-6 h-6 bg-gray-400 rounded-full mt-1 -left-3 border-4 border-white"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p class="font-bold text-lg text-gray-500"&gt;Jul 2015 – Dec 2016&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;h4 class="font-semibold text-xl"&gt;Bank Recovery Process&lt;/h4&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p class="text-md text-gray-600"&gt;LUCRE MANAGEMENT&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="md:col-span-2 lg:col-span-3 bg-white rounded-lg shadow-lg p-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;h3 class="text-2xl font-bold text-[#00449E] mb-4"&gt;Operational Process Flow (Current Role)&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;p class="text-gray-600 mb-6"&gt;This chart organizes the complex responsibilities of the Backend Executive Officer. It showcases the central role of leadership in coordinating between front-end teams, regional management, and external stakeholders like vendors and landlords. The flow highlights a focus on problem resolution, financial oversight, and strategic growth initiatives.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="flex flex-col space-y-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="flex items-center justify-center space-x-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="flowchart-node"&gt;Front-End Teams&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                         </span>&lt;div class="flowchart-connector"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="flowchart-node bg-[#005CB9] text-white shadow-lg"&gt;Leadership &amp; Resolution (Prabu)&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                         </span>&lt;div class="flowchart-connector"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="flowchart-node"&gt;Area/Regional Managers&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="flex justify-center"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="w-2 h-8 border-l-2 border-r-2 border-dashed border-[#45A2FF]"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="flex items-center justify-center space-x-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="flowchart-node"&gt;Store Vendors&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="flowchart-connector"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="flowchart-node"&gt;Landlords&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                         </span>&lt;div class="flowchart-connector"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="flowchart-node"&gt;Executive Approvers&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="md:col-span-1 bg-white rounded-lg shadow-lg p-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;h3 class="text-2xl font-bold text-[#00449E] mb-4"&gt;Experience Distribution&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;p class="text-gray-600 mb-4"&gt;This donut chart compares the allocation of time across different industry sectors, revealing a significant concentration in Sales and Operations. This composition underscores a deep understanding of both customer-facing and internal business mechanics.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="chart-container"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;canvas id="experienceDonutChart"&gt;&lt;/canvas&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="md:col-span-1 bg-white rounded-lg shadow-lg p-6 flex flex-col"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;h3 class="text-2xl font-bold text-[#00449E] mb-4"&gt;Educational Foundation&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                 </span>&lt;p class="text-gray-600 mb-4"&gt;A pyramid diagram illustrates the educational hierarchy, starting from a solid secondary education and building up to a B.Com degree. This commercial foundation is further enhanced by specialized technical diplomas, creating a unique T-shaped skill set.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="flex-grow flex flex-col justify-center items-center space-y-1"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="pyramid-level w-4/5" style="background-color: #005CB9;"&gt;Honour Diploma &amp; Web Design&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="pyramid-level w-3/5" style="background-color: #0076D7;"&gt;B.Com General&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="pyramid-level w-2/5" style="background-color: #45A2FF;"&gt;HSC&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="pyramid-level w-1/5" style="background-color: #89C9FF;"&gt;SSLC&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="md:col-span-1 bg-white rounded-lg shadow-lg p-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;h3 class="text-2xl font-bold text-[#00449E] mb-4"&gt;Language Proficiency&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;p class="text-gray-600 mb-4"&gt;A simple pictograph conveys the candidate's multilingual capabilities, a significant asset for communication in a diverse market like India.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;ul class="space-y-3 mt-6 text-lg"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li class="flex items-center"&gt;&lt;span class="text-2xl mr-3"&gt;🗣️&lt;/span&gt;&lt;span class="font-semibold"&gt;Tamil:&lt;/span&gt;&lt;span class="ml-auto text-gray-600 font-medium"&gt;Native&lt;/span&gt;&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li class="flex items-center"&gt;&lt;span class="text-2xl mr-3"&gt;🗣️&lt;/span&gt;&lt;span class="font-semibold"&gt;Telugu:&lt;/span&gt;&lt;span class="ml-auto text-gray-600 font-medium"&gt;Proficient&lt;/span&gt;&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li class="flex items-center"&gt;&lt;span class="text-2xl mr-3"&gt;🗣️&lt;/span&gt;&lt;span class="font-semibold"&gt;English:&lt;/span&gt;&lt;span class="ml-auto text-gray-600 font-medium"&gt;Fluent&lt;/span&gt;&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;li class="flex items-center"&gt;&lt;span class="text-2xl mr-3"&gt;🗣️&lt;/span&gt;&lt;span class="font-semibold"&gt;Hindi:&lt;/span&gt;&lt;span class="ml-auto text-gray-600 font-medium"&gt;Intermediate&lt;/span&gt;&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/ul&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/main&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;footer class="text-center p-6 mt-8 bg-white text-gray-500 text-sm border-t"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;p&gt;This infographic was dynamically generated based on professional data. All visualizations are rendered using HTML, CSS, and Chart.js on a Canvas element.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;p&gt;CONFIRMATION: NO SVG OR MERMAID.JS WAS USED IN THE CREATION OF THIS DOCUMENT.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/footer&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const brilliantBlues = ['#005CB9', '#0076D7', '#45A2FF', '#89C9FF', '#00449E'];</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function wrapLabel(str, max_width) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (str.length &lt;= max_width) return str;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const words = str.split(' ');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const lines = [];</p>
+<p class="p1"><span class="Apple-converted-space">            </span>let current_line = '';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>for (const word of words) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>if ((current_line + ' ' + word).trim().length &gt; max_width &amp;&amp; current_line.length &gt; 0) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>lines.push(current_line);</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>current_line = word;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>current_line = (current_line + ' ' + word).trim();</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (current_line.length &gt; 0) lines.push(current_line);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>return lines;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>const tooltipTitleCallback = (tooltipItems) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const item = tooltipItems[0];</p>
+<p class="p1"><span class="Apple-converted-space">            </span>let label = item.chart.data.labels[item.dataIndex];</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (Array.isArray(label)) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>return label.join(' ');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>return label;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>};</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>const chartOptionsTemplate = {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>responsive: true,</p>
+<p class="p1"><span class="Apple-converted-space">            </span>maintainAspectRatio: false,</p>
+<p class="p1"><span class="Apple-converted-space">            </span>plugins: {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>legend: {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>position: 'bottom',</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>labels: {</p>
+<p class="p1"><span class="Apple-converted-space">                         </span>color: '#374151'</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>},</p>
+<p class="p1"><span class="Apple-converted-space">                </span>tooltip: {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>callbacks: {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>title: tooltipTitleCallback</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>const skillsRadarCtx = document.getElementById('skillsRadarChart').getContext('2d');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>new Chart(skillsRadarCtx, {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>type: 'radar',</p>
+<p class="p1"><span class="Apple-converted-space">            </span>data: {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>labels: ['Problem-solving', 'Teamwork', 'Communication', 'Time Management', 'Adaptability', 'Customer Service'],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>datasets: [{</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>label: 'Skill Level',</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>data: [9, 8, 8, 9, 10, 8],</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>backgroundColor: 'rgba(69, 162, 255, 0.2)',</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>borderColor: '#0076D7',</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>borderWidth: 2,</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>pointBackgroundColor: '#005CB9',</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>pointBorderColor: '#fff',</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>pointHoverBackgroundColor: '#fff',</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>pointHoverBorderColor: '#005CB9'</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}]</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>options: {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>...chartOptionsTemplate,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>scales: {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>r: {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>angleLines: { color: 'rgba(0, 0, 0, 0.1)' },</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>grid: { color: 'rgba(0, 0, 0, 0.1)' },</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>pointLabels: { font: { size: 14 }, color: '#374151' },</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>ticks: {</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>color: '#005CB9',</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>backdropColor: 'rgba(255, 255, 255, 0.75)',</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>stepSize: 2</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>},</p>
+<p class="p1"><span class="Apple-converted-space">                         </span>min: 0,</p>
+<p class="p1"><span class="Apple-converted-space">                         </span>max: 10</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>},</p>
+<p class="p1"><span class="Apple-converted-space">                </span>plugins: { ...chartOptionsTemplate.plugins, legend: { display: false } }</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>const experienceDonutCtx = document.getElementById('experienceDonutChart').getContext('2d');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>new Chart(experienceDonutCtx, {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>type: 'doughnut',</p>
+<p class="p1"><span class="Apple-converted-space">            </span>data: {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>labels: ['Sales &amp; Customer Relations', 'Operations', 'Finance &amp; Accounting', 'Leadership'],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>datasets: [{</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>label: 'Experience Distribution',</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>data: [2.5, 3.5, 2, 1.5],</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>backgroundColor: brilliantBlues,</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>borderColor: '#fff',</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>borderWidth: 3,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}]</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">             </span>options: {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>...chartOptionsTemplate,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>cutout: '60%'</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>});</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>document.addEventListener('DOMContentLoaded', function() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const startDate = new Date('2015-07-01');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const today = new Date();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>let years = today.getFullYear() - startDate.getFullYear();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>let months = today.getMonth() - startDate.getMonth();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (months &lt; 0) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>years--;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>months += 12;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('total-experience').textContent = years + (months &gt; 6 ? '+' : '');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
